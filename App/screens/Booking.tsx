@@ -5,7 +5,6 @@ import { LightTheme } from '../../assets/theme/LightTheme'
 import Header from '../components/Header'
 import BookingBottomSheet from '../components/BookingBottomSheet'
 import LogoLg from '../components/LogoLg'
-import BackgroundGradient from '../fragments/BackgroundGradient'
 
 export default function Booking({ navigation }) {
   const numServicos = 3
@@ -13,8 +12,6 @@ export default function Booking({ navigation }) {
 
   return (
     <View style={styles.screen}>
-      {/*background */}
-      <BackgroundGradient />
       {/*header */}
       <Header navigation={navigation} />
       <LogoLg />

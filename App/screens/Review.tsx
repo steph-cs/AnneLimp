@@ -3,14 +3,11 @@ import React from 'react'
 import { Button, Text } from 'react-native-paper'
 import { styles } from './style'
 import LogoLg from '../components/LogoLg'
-import BackgroundGradient from '../fragments/BackgroundGradient'
 import Warning from '../fragments/Warning'
 
 export default function Review({ navigation }) {
   return (
     <View style={styles.screen}>
-      {/*background */}
-      <BackgroundGradient />
       <LogoLg />
       {/*card review */}
       <View style={ReviewStyles.card}>

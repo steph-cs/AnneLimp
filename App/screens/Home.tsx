@@ -49,7 +49,7 @@ export default function Home({ navigation }) {
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
             <TouchableOpacity>
               <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
-                <Text variant='headlineMedium'>
+                <Text variant='headlineSmall'>
                   Serviços
                 </Text>
                 <Icon source="chevron-right" size={32} />

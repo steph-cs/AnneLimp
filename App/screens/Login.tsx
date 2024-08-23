@@ -2,7 +2,6 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { Button, HelperText, Snackbar, Text, TextInput, useTheme } from 'react-native-paper'
 import { Link } from '@react-navigation/native'
-import { LinearGradient } from 'expo-linear-gradient'
 
 const styles = StyleSheet.create({
   view: {
@@ -73,11 +72,6 @@ export default function Login() {
   }
   return (
     <View style={styles.view}>
-      <LinearGradient
-        // Background Linear Gradient
-        colors={['#ffffff', '#62919F']}
-        style={styles.background}
-      />
       <View style={styles.container}>
         <Text style={{ marginVertical: 15 }} variant="displayMedium">
           Login
