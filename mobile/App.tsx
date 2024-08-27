@@ -24,8 +24,8 @@ function Root() {
         },
         drawerActiveTintColor: LightTheme.colors.primary
       }}>
-      <Drawer.Screen options={{title: 'Home'}} name="HomeScreensStack" component={HomeScreensStack} />
-      <Drawer.Screen options={{title: 'Agendar'}} name="BookingScreensStack" component={BookingScreensStack} />
+      <Drawer.Screen options={{ title: 'Home' }} name="HomeScreensStack" component={HomeScreensStack} />
+      <Drawer.Screen options={{ title: 'Agendar' }} name="BookingScreensStack" component={BookingScreensStack} />
     </Drawer.Navigator>
   );
 }

@@ -5,7 +5,7 @@ import { Button, Text } from 'react-native-paper';
 import { LightTheme } from '../../assets/theme/LightTheme';
 import Warning from '../fragments/Warning';
 
-export default function BookingBottomSheet({navigation}) {
+export default function BookingBottomSheet({ navigation }) {
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -84,7 +84,7 @@ export default function BookingBottomSheet({navigation}) {
               </View>
             </View>
             {/*aviso */}
-            <Warning/>
+            <Warning />
             <Button mode='contained' onPress={() => navigation.navigate('BookingScreensStack', { screen: 'Review' })}>Confrmar meu agendamento</Button>
           </View>
         </View>
