@@ -31,10 +31,10 @@ export default function Home({ navigation }) {
   return (
     <View style={styles.screen}>
       {/*header */}
-      <Header logo navigation={navigation} />
+      <Header logo />
       {/*main container */}
       <View style={HomeStyles.container}>
-        <View>
+        <View style={{marginBottom: 25}}>
           {/*title */}
           < View style={{ marginTop: 30 }} >
             <Text style={{ color: theme.colors.outline }} variant='headlineMedium'>Olá,

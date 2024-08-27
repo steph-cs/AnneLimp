@@ -13,7 +13,7 @@ export default function Booking({ navigation }) {
   return (
     <View style={styles.screen}>
       {/*header */}
-      <Header navigation={navigation} />
+      <Header />
       <LogoLg />
       {/*actions */}
       <View style={styles.actions}>
