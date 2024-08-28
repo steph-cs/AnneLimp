@@ -42,6 +42,9 @@ export default function Header(props: HeaderProps) {
               borderRadius: 50,
               width: 10,
               height: 10,
+              position: 'absolute',
+              top: 0,
+              right: 5
             }}> </Text>
             <IconButton
               iconColor={LightTheme.colors.black}

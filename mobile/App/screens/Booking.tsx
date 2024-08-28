@@ -2,7 +2,6 @@ import { View, StyleSheet } from 'react-native'
 import React, { } from 'react'
 import { Button, IconButton, Searchbar, Text, useTheme } from 'react-native-paper'
 import { LightTheme } from '../../assets/theme/LightTheme'
-import Header from '../components/Header'
 import BookingBottomSheet from '../components/BookingBottomSheet'
 import LogoLg from '../components/LogoLg'
 
@@ -12,8 +11,6 @@ export default function Booking({ navigation }) {
 
   return (
     <View style={styles.screen}>
-      {/*header */}
-      <Header />
       <LogoLg />
       {/*actions */}
       <View style={styles.actions}>

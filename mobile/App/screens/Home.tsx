@@ -34,7 +34,7 @@ export default function Home({ navigation }) {
       <Header logo />
       {/*main container */}
       <View style={HomeStyles.container}>
-        <View style={{marginBottom: 25}}>
+        <View style={{ marginBottom: 25, width: '90%', margin: 'auto' }}>
           {/*title */}
           < View style={{ marginTop: 30 }} >
             <Text style={{ color: theme.colors.outline }} variant='headlineMedium'>Olá,
@@ -42,11 +42,11 @@ export default function Home({ navigation }) {
             </Text>
           </View>
           {/*main card */}
-          <MainCard navigation={navigation}/>
+          <MainCard navigation={navigation} />
         </View>
         {/*service cards */}
         <View>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '90%', margin: 'auto' }}>
             <TouchableOpacity>
               <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
                 <Text variant='headlineSmall'>
@@ -56,11 +56,9 @@ export default function Home({ navigation }) {
               </View>
             </TouchableOpacity>
             <Button mode='text' >Ver todos</Button>
-
           </View>
 
           {/*cards */}
-
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -68,8 +66,6 @@ export default function Home({ navigation }) {
             {loading ? <Text>Loading...</Text> : null}
             {services.map((service, index) => <ServiceCard key={index} service={service} />)}
           </ScrollView >
-
-
         </View>
       </View>
     </View >
@@ -78,8 +74,6 @@ export default function Home({ navigation }) {
 
 const HomeStyles = StyleSheet.create({
   container: {
-    width: '90%',
-    marginHorizontal: 'auto',
     justifyContent: 'center',
   }
 })
