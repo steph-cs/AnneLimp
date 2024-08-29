@@ -10,11 +10,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomTab } from './App/components/BottomTab'
 import Service from './App/screens/Service'
+import Init from './App/screens/Init'
 
 export type RootStackParamList = {
+  Init: undefined;
   Tabs: undefined;
   Booking: undefined;
-  Service: {serviceId: string}
+  Service: { serviceId: string }
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -52,6 +54,7 @@ export default function App() {
       <GestureHandlerRootView>
         <NavigationContainer >
           <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='Init' component={Init} />
             <Stack.Screen
               name="Tabs"
               component={Tabs}
