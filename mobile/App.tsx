@@ -1,68 +1,66 @@
 import React from 'react'
 import './gesture-handler'
-import { PaperProvider } from 'react-native-paper'
+import { Icon, PaperProvider } from 'react-native-paper'
 import { LightTheme } from './assets/theme/LightTheme'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Home from './App/screens/Home'
 import Booking from './App/screens/Booking'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import Review from './App/screens/Review'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { BottomTab } from './App/components/BottomTab'
+import Service from './App/screens/Service'
 
-const Stack = createNativeStackNavigator()
-const HomeStack = createNativeStackNavigator()
-const BookingStack = createNativeStackNavigator()
-const Drawer = createDrawerNavigator()
+export type RootStackParamList = {
+  Tabs: undefined;
+  Booking: undefined;
+  Service: {serviceId: string}
+}
 
-function Root() {
+const Stack = createNativeStackNavigator<RootStackParamList>()
+const TabNavigator = createBottomTabNavigator();
+
+function Tabs() {
   return (
-    <Drawer.Navigator
+    <TabNavigator.Navigator
+      initialRouteName="Home"
+      tabBar={props => <BottomTab {...props} />}
       screenOptions={{
         headerShown: false,
-        headerStyle: {
-          backgroundColor: '#ffffff',
-        },
-        drawerActiveTintColor: LightTheme.colors.primary
-      }}>
-      <Drawer.Screen options={{ title: 'Home' }} name="HomeScreensStack" component={HomeScreensStack} />
-      <Drawer.Screen options={{ title: 'Agendar' }} name="BookingScreensStack" component={BookingScreensStack} />
-    </Drawer.Navigator>
+        tabBarShowLabel: false,
+      }}
+    >
+      <TabNavigator.Screen
+        name="home"
+        component={Home}
+      />
+      <TabNavigator.Screen
+        name="agendamento"
+        component={Booking}
+      />
+      <TabNavigator.Screen
+        name="perfil"
+        component={Home}
+      />
+    </TabNavigator.Navigator>
   );
-}
-
-function HomeScreensStack() {
-  return (
-    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen
-        name="Home"
-        component={Home} />
-      <HomeStack.Screen name="Booking" component={Booking} />
-    </HomeStack.Navigator>
-  )
-}
-
-function BookingScreensStack() {
-  return (
-    <BookingStack.Navigator screenOptions={{ headerShown: false }}>
-      <BookingStack.Screen
-        name="Booking"
-        component={Booking} />
-      <BookingStack.Screen name="Review" component={Review} />
-    </BookingStack.Navigator>
-  )
 }
 
 export default function App() {
   return (
     <PaperProvider theme={LightTheme}>
-      <NavigationContainer >
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen
-            name="Root"
-            component={Root}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <GestureHandlerRootView>
+        <NavigationContainer >
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen
+              name="Tabs"
+              component={Tabs}
+            />
+            <Stack.Screen name='Booking' component={Booking} />
+            <Stack.Screen name='Service' component={Service} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </GestureHandlerRootView>
     </PaperProvider >
   )
 }
