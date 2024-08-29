@@ -20,7 +20,7 @@ export default function Service({ route }) {
   const navigation = useNavigation<NavigationProp>()
 
   const getServicos = async () => {
-    fetch(`https://annelimp-api.onrender.com/servicos/${serviceId}`)
+    fetch(`https://annelimp.onrender.com/servicos/${serviceId}`)
       .then((response) => response.json())
       .then((json) => {
         setService(json)

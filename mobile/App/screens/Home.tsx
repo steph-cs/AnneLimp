@@ -17,7 +17,7 @@ export default function Home({ navigation }) {
   const [loading, setLoading] = useState(true)
 
   const getServicos = async () => {
-    fetch('https://annelimp-api.onrender.com/servicos')
+    fetch('https://annelimp.onrender.com/servicos')
       .then((response) => response.json())
       .then((json) => { setServices(json) })
       .catch((error) => console.error(error))
