@@ -7,7 +7,7 @@ export const LightTheme = {
     onPrimary: 'rgb(255, 255, 255)',
     primaryContainer: 'rgb(188, 233, 255)',
     onPrimaryContainer: 'rgb(0, 31, 41)',
-    secondary: 'rgb(77, 97, 107)',
+    secondary: '#3CB4B4',
     onSecondary: 'rgb(255, 255, 255)',
     secondaryContainer: 'rgb(208, 230, 242)',
     onSecondaryContainer: 'rgb(8, 30, 39)',

@@ -4,7 +4,8 @@ import { Button, Text } from 'react-native-paper'
 
 type tipoServico = 'simples' | 'pesada'
 
-interface ServiceModel {
+export interface ServiceModel {
+  _id: string,
   tipo: tipoServico
   descricao: {
     titulo: string
@@ -14,24 +15,25 @@ interface ServiceModel {
   precoDuracao: {
     preco: number
     duracao: number
-  }
+  }[]
 }
 
 type ServiceCardProps = {
-  service: ServiceModel
-}
+  navigation: {
+    navigate: (screen: string, params?: object) => void;
+  };
+  service: ServiceModel;
+};
 
-export default function ServiceCard(props: ServiceCardProps) {
-
-  const { service } = props
+export default function ServiceCard({ navigation: { navigate }, service }: ServiceCardProps) {
 
   return (
     <View style={[ServiceCardStyles.card, ServiceCardStyles.cardShadow]}>
-      <View style= {{gap: 10}}>
+      <View style={{ gap: 10 }}>
         <Text variant='headlineSmall' > Limpeza {service.tipo}</Text>
         <Text variant='bodyLarge'> {service.descricao.titulo}</Text>
       </View>
-      <Button style={ServiceCardStyles.cardBtn} mode='outlined' icon={'chevron-right'} contentStyle={{ flexDirection: 'row-reverse' }}>Saiba mais</Button>
+      <Button style={ServiceCardStyles.cardBtn} mode='outlined' icon={'chevron-right'} onPress={() => navigate('Service', { serviceId: service._id })} contentStyle={{ flexDirection: 'row-reverse' }} >Saiba mais</Button>
     </View>
   )
 }
@@ -60,6 +62,5 @@ const ServiceCardStyles = StyleSheet.create({
   },
   cardBtn: {
     width: 200
-
   }
 })

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { View, Image, StyleSheet } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import { Button, Icon, Text, useTheme } from 'react-native-paper'
 import Header from '../components/Header'
 import { styles } from './style'
-import ServiceCard from '../components/ServiceCard'
-import { ScrollView } from 'react-native-gesture-handler'
+import ServiceCard, { ServiceModel } from '../components/ServiceCard'
 import { TouchableOpacity } from '@gorhom/bottom-sheet'
 import MainCard from '../components/MainCard'
+import Loading from '../fragments/Loading'
 
 export default function Home({ navigation }) {
 
   const theme = useTheme()
   const username = "Stephanie"
 
-  const [services, setServices] = useState([])
+  const [services, setServices] = useState<ServiceModel[]>([])
   const [loading, setLoading] = useState(true)
 
   const getServicos = async () => {
@@ -59,13 +59,17 @@ export default function Home({ navigation }) {
           </View>
 
           {/*cards */}
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          >
-            {loading ? <Text>Loading...</Text> : null}
-            {services.map((service, index) => <ServiceCard key={index} service={service} />)}
-          </ScrollView >
+          {loading ?
+            <View style={{ height: 200, justifyContent: 'center', alignContent: 'center' }}>
+              <Loading />
+            </View> :
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {services.map((service, index) => <ServiceCard navigation={navigation} key={index} service={service} />)}
+            </ScrollView >
+          }
         </View>
       </View>
     </View >
