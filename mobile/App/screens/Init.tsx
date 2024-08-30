@@ -23,7 +23,7 @@ export default function Init({ navigation }) {
         <Text variant='titleMedium'>A limpeza que seu lar merece</Text>
       </View>
       {/* btn */}
-      <Button style={{ width: '50%', marginBottom: 50 }} mode='contained' onPress={() => { navigation.navigate('Tabs') }}>Entrar</Button>
+      <Button style={{ width: '50%', marginBottom: 50 }} mode='contained' onPress={() => { navigation.navigate('Login') }}>Entrar</Button>
     </View>
   )
 }

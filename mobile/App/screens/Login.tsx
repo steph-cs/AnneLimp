@@ -1,49 +1,13 @@
-import { StyleSheet, View } from 'react-native'
+import { Image, Pressable, StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
-import { Button, HelperText, Snackbar, Text, TextInput, useTheme } from 'react-native-paper'
+import { Button, HelperText, Snackbar, Text, useTheme } from 'react-native-paper'
 import { Link } from '@react-navigation/native'
+import { styles } from './style'
+import LogoLg from '../components/LogoLg'
+import { LightTheme } from '../../assets/theme/LightTheme'
 
-const styles = StyleSheet.create({
-  view: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: '100%',
-  },
-  container: {
-    padding: 30,
-    marginHorizontal: 20,
-    borderRadius: 20,
-    backgroundColor: '#ffffff',
-    zIndex: 2
-  },
-  containerSecondary: {
-    display: 'flex',
-    alignItems: 'center',
-    position: 'relative',
-    zIndex: 1,
-    bottom: 10,
-    paddingVertical: 30,
-    marginHorizontal: 20,
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    backgroundColor: '#62919F',
-  },
-  snackbar: {
-    position: 'relative',
-    top: 0,
-    right: 0,
-  },
-})
+export default function Login({ navigation }) {
 
-export default function Login() {
-  const theme = useTheme()
 
   const [visible, setVisible] = React.useState(false)
   const [email, setEmail] = React.useState('')
@@ -55,7 +19,7 @@ export default function Login() {
   const onDismissSnackBar = () => setVisible(false)
 
   const handleLogin = () => {
-    senha === '123' ? null : onToggleSnackBar()
+    senha === '123' ? navigation.navigate('Tabs') : onToggleSnackBar()
   }
   const validateEmail = (email: string) => {
     // eslint-disable-next-line no-useless-escape
@@ -71,51 +35,68 @@ export default function Login() {
     setEmail(email)
   }
   return (
-    <View style={styles.view}>
-      <View style={styles.container}>
-        <Text style={{ marginVertical: 15 }} variant="displayMedium">
-          Login
-        </Text>
-        <TextInput
-          mode="outlined"
-          label="E-mail"
-          inputMode="email"
-          value={email}
-          onChangeText={(email) => validateEmail(email)}
-        />
-        <HelperText
-          type="error"
-          style={emailValidError ? { height: 0 } : { height: 25 }}
-        >
-          Email inválido!
-        </HelperText>
-
-        <TextInput
-          label="Senha"
-          mode="outlined"
-          value={senha}
-          onChangeText={(senha) => setSenha(senha)}
-          secureTextEntry
-          right={<TextInput.Icon icon="eye" />}
-        />
-        <Link to={'/'}>Esqueceu sua senha?</Link>
-
+    <View style={[styles.screen, LoginStyles.container]}>
+      {/* logo */}
+      <View>
+        <LogoLg />
+      </View>
+      <View style={{}}>
+        {/* email */}
+        <View>
+          <View style={LoginStyles.inputGroup}>
+            <Text variant='labelLarge'>Email</Text>
+            <TextInput
+              style={LoginStyles.input}
+              selectionColor={theme.primary}
+              placeholder='stephanie@gmail.com'
+              inputMode="email"
+              value={email}
+              onChangeText={(email) => validateEmail(email)} />
+          </View>
+          <HelperText
+            type="error"
+            style={emailValidError ? { height: 0 } : { height: 25 }}
+          >
+            Email inválido!
+          </HelperText>
+        </View>
+        {/* senha */}
+        <View style={LoginStyles.inputGroup}>
+          <Text variant='labelLarge'>Senha</Text>
+          <TextInput
+            style={LoginStyles.input}
+            selectionColor={theme.primary}
+            placeholder='******'
+            value={senha}
+            onChangeText={(senha) => setSenha(senha)}
+            secureTextEntry
+          />
+          <Link to={'/'}>
+            <Text variant='labelMedium'>Esqueceu sua senha?</Text>
+          </Link>
+        </View>
         <Button
-          style={{ marginTop: 15 }}
+          style={{ marginTop: 35 }}
           mode="contained"
           onPress={handleLogin}
         >
-          Login
+          Fazer login
         </Button>
       </View>
-      <View style={styles.containerSecondary}>
-        <Text style={{ color: theme.colors.onPrimary }}>Não tem cadastro?</Text>
-        <Link style={{ color: theme.colors.onPrimaryContainer }} to={'/Home'}>
-          Cadastrar-se
-        </Link>
+      <View style={LoginStyles.ou}>
+        <Text variant='bodyLarge' style={LoginStyles.ouText} >ou</Text>
       </View>
+      {/* google login */}
+      <Pressable
+        style={LoginStyles.btnOutline}
+        onPress={() => { }}
+      >
+        <Image source={require('../../assets/imgs/icons/google-icon.png')} style={{width: 24, height: 24}} />
+        <Text>Fazer login com o Google</Text>
+      </Pressable>
+      <Text variant='labelLarge' style={{alignSelf: 'center'}}>Não tem cadastro? <Link to={'/Tabs'} style={{color: theme.primary}}>Cadastre-se</Link></Text>
       <Snackbar
-        style={styles.snackbar}
+        style={LoginStyles.snackbar}
         visible={visible}
         onDismiss={onDismissSnackBar}
         action={{
@@ -130,4 +111,51 @@ export default function Login() {
     </View>
   )
 }
-
+const theme = LightTheme.colors
+const LoginStyles = StyleSheet.create({
+  container: {
+    padding: 20
+  },
+  input: {
+    fontSize: 18,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 30,
+    borderColor: theme.primary,
+    borderWidth: 1.2,
+  },
+  inputGroup: {
+    gap: 10,
+  },
+  snackbar: {
+    position: 'relative',
+    top: 0,
+    right: 0,
+  },
+  ou: {
+    marginVertical: 20,
+    height: 20,
+    borderBottomWidth: 1,
+    borderColor: theme.outline
+  },
+  ouText: {
+    color: theme.outline,
+    padding: 10,
+    alignSelf: 'center',
+    bottom: -20,
+    backgroundColor: theme.white,
+    position: 'absolute',
+  },
+  btnOutline: {
+    marginVertical: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 30,
+    borderColor: theme.primary,
+    borderWidth: 1.2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10
+  }
+})
