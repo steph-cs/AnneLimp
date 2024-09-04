@@ -12,6 +12,7 @@ import { BottomTab } from './App/components/BottomTab'
 import Service from './App/screens/Service'
 import Init from './App/screens/Init'
 import Login from './App/screens/Login'
+import Profile from './App/screens/Profile'
 import { UserProvider } from './App/context/UserContext'
 
 export type RootStackParamList = {
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   Login: undefined;
   Tabs: undefined;
   Booking: undefined;
+  Profile: undefined;
   Service: { serviceId: string }
 }
 
@@ -45,7 +47,7 @@ function Tabs() {
       />
       <TabNavigator.Screen
         name="perfil"
-        component={Home}
+        component={Profile}
       />
     </TabNavigator.Navigator>
   );

@@ -20,7 +20,7 @@ export default function Header(props: HeaderProps) {
   const hasNotification = true
 
   return (
-    < View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 45, paddingHorizontal: 10 }}>
+    < View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 10, paddingHorizontal: 10 }}>
 
       {/* logo */}
       {logo && <Image source={require('../../assets/logo/logo-sm.png')} style={styles.logo} />}

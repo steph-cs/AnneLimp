@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import { Button, Text } from 'react-native-paper'
+import { LightTheme } from '../../assets/theme/LightTheme'
 
 type tipoServico = 'simples' | 'pesada'
 
@@ -39,7 +40,7 @@ export default function ServiceCard({ navigation: { navigate }, service }: Servi
 }
 const ServiceCardStyles = StyleSheet.create({
   card: {
-    backgroundColor: '#F6F6F6',
+    backgroundColor: LightTheme.colors.elevation.level1,
     borderRadius: 20,
     paddingVertical: 20,
     paddingHorizontal: 25,

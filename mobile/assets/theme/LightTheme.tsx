@@ -34,7 +34,7 @@ export const LightTheme = {
     inversePrimary: 'rgb(98, 212, 255)',
     elevation: {
       level0: 'transparent',
-      level1: 'rgb(238, 245, 248)',
+      level1: '#F6F6F6',
       level2: 'rgb(231, 240, 244)',
       level3: 'rgb(223, 236, 241)',
       level4: 'rgb(221, 234, 239)',
