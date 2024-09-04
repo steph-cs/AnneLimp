@@ -12,6 +12,7 @@ import { BottomTab } from './App/components/BottomTab'
 import Service from './App/screens/Service'
 import Init from './App/screens/Init'
 import Login from './App/screens/Login'
+import { UserProvider } from './App/context/UserContext'
 
 export type RootStackParamList = {
   Init: undefined;
@@ -53,20 +54,22 @@ function Tabs() {
 export default function App() {
   return (
     <PaperProvider theme={LightTheme}>
-      <GestureHandlerRootView>
-        <NavigationContainer >
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name='Init' component={Init} />
-            <Stack.Screen name='Login' component={Login} />
-            <Stack.Screen
-              name="Tabs"
-              component={Tabs}
-            />
-            <Stack.Screen name='Booking' component={Booking} />
-            <Stack.Screen name='Service' component={Service} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </GestureHandlerRootView>
+      <UserProvider>
+        <GestureHandlerRootView>
+          <NavigationContainer >
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Screen name='Init' component={Init} />
+              <Stack.Screen name='Login' component={Login} />
+              <Stack.Screen
+                name="Tabs"
+                component={Tabs}
+              />
+              <Stack.Screen name='Booking' component={Booking} />
+              <Stack.Screen name='Service' component={Service} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </GestureHandlerRootView>
+      </UserProvider>
     </PaperProvider >
   )
 }

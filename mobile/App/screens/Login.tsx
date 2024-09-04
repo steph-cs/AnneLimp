@@ -1,14 +1,26 @@
 import { Image, Pressable, StyleSheet, TextInput, View } from 'react-native'
-import React from 'react'
-import { Button, HelperText, Snackbar, Text, useTheme } from 'react-native-paper'
+import React, { useContext, useEffect } from 'react'
+import { Button, HelperText, Snackbar, Text, } from 'react-native-paper'
 import { Link } from '@react-navigation/native'
 import { styles } from './style'
 import LogoLg from '../components/LogoLg'
 import { LightTheme } from '../../assets/theme/LightTheme'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { UserContext } from '../context/UserContext'
 
 export default function Login({ navigation }) {
 
+  const configureGoogleSignIn = () => {
+    GoogleSignin.configure({
+      androidClientId: process.env.ANDROID_CLIENT_ID
+    })
+  }
 
+  /* Context */
+  const userContext = useContext(UserContext)
+  const {updateUser} = userContext
+
+  const [error, setError] = React.useState()
   const [visible, setVisible] = React.useState(false)
   const [email, setEmail] = React.useState('')
   const [emailValidError, setEmailValidError] = React.useState(false)
@@ -19,7 +31,7 @@ export default function Login({ navigation }) {
   const onDismissSnackBar = () => setVisible(false)
 
   const handleLogin = () => {
-    senha === '123' ? navigation.navigate('Tabs') : onToggleSnackBar()
+    senha === '000' ? navigation.navigate('Tabs') : onToggleSnackBar()
   }
   const validateEmail = (email: string) => {
     // eslint-disable-next-line no-useless-escape
@@ -27,14 +39,30 @@ export default function Login({ navigation }) {
 
     if (reg.test(email) === false) {
       setEmailValidError(false)
-      console.log('false')
     } else {
       setEmailValidError(true)
-      console.log('true')
     }
     setEmail(email)
   }
+
+  useEffect(() => {
+    configureGoogleSignIn()
+  })
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices()
+      const userInfo = await GoogleSignin.signIn()
+      updateUser(userInfo)
+      setError(null)
+      navigation.navigate('Tabs')
+    } catch (error) {
+      setError(error)
+    }
+  }
+
   return (
+
     <View style={[styles.screen, LoginStyles.container]}>
       {/* logo */}
       <View>
@@ -89,12 +117,12 @@ export default function Login({ navigation }) {
       {/* google login */}
       <Pressable
         style={LoginStyles.btnOutline}
-        onPress={() => { }}
+        onPress={signIn}
       >
-        <Image source={require('../../assets/imgs/icons/google-icon.png')} style={{width: 24, height: 24}} />
+        <Image source={require('../../assets/imgs/icons/google-icon.png')} style={{ width: 24, height: 24 }} />
         <Text>Fazer login com o Google</Text>
       </Pressable>
-      <Text variant='labelLarge' style={{alignSelf: 'center'}}>Não tem cadastro? <Link to={'/Tabs'} style={{color: theme.primary}}>Cadastre-se</Link></Text>
+      <Text variant='labelLarge' style={{ alignSelf: 'center' }}>Não tem cadastro? <Link to={'/Tabs'} style={{ color: theme.primary }}>Cadastre-se</Link></Text>
       <Snackbar
         style={LoginStyles.snackbar}
         visible={visible}

@@ -12,16 +12,31 @@
       "backgroundColor": "#296379"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier" : "com.stephcs.AnneLimp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#296379"
-      }
+      },
+      "package": "com.stephcs.AnneLimp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.146636543382-onkmrp4a07eobdp75ph67kf8tsrhu4st"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "24638a25-708c-4ce2-bca9-1c460908769c"
+      }
     }
   }
 }
