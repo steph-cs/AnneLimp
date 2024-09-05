@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, TextInput, View } from 'react-native'
+import { Image, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import { Button, HelperText, Snackbar, Text, } from 'react-native-paper'
 import { Link } from '@react-navigation/native'
@@ -12,7 +12,7 @@ export default function Login({ navigation }) {
 
   const configureGoogleSignIn = () => {
     GoogleSignin.configure({
-      androidClientId: process.env.ANDROID_CLIENT_ID
+      androidClientId: "146636543382-e6d4o7hn630q4uet09j76jcsduo9n1ao.apps.googleusercontent.com"
     })
   }
 
