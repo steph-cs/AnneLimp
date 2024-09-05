@@ -1,9 +1,10 @@
 import { View, StyleSheet } from 'react-native'
 import React, { } from 'react'
 import { Button, IconButton, Searchbar, Text, useTheme } from 'react-native-paper'
-import { LightTheme } from '../../assets/theme/LightTheme'
-import BookingBottomSheet from '../components/BookingBottomSheet'
-import LogoLg from '../components/LogoLg'
+import LogoLg from '../../components/LogoLg'
+import { LightTheme } from '../../../assets/theme/LightTheme'
+import BookingBottomSheet from '../../components/BookingBottomSheet'
+
 
 export default function Booking({ navigation }) {
   const numServicos = 3

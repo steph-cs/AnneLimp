@@ -1,8 +1,8 @@
 import { View, Image, StyleSheet } from 'react-native'
 import React from 'react'
-import { styles } from './style'
+import { styles } from '../style'
 import { Button, Text } from 'react-native-paper'
-import { LightTheme } from '../../assets/theme/LightTheme'
+import { LightTheme } from '../../../assets/theme/LightTheme'
 
 export default function Init({ navigation }) {
 
@@ -11,7 +11,7 @@ export default function Init({ navigation }) {
       <View style={InitStyles.logoContainer}>
         {/* logo */}
         <View style={[InitStyles.logo]}>
-          <Image source={require('../../assets/logo/logo-lg.png')} style={InitStyles.logoImg} />
+          <Image source={require('../../../assets/logo/logo-lg.png')} style={InitStyles.logoImg} />
         </View>
       </View>
       {/* text */}

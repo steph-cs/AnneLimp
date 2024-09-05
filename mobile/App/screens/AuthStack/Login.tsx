@@ -1,12 +1,12 @@
-import { Image, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native'
+import { Image, Pressable, StyleSheet, TextInput, View } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import { Button, HelperText, Snackbar, Text, } from 'react-native-paper'
 import { Link } from '@react-navigation/native'
-import { styles } from './style'
-import LogoLg from '../components/LogoLg'
-import { LightTheme } from '../../assets/theme/LightTheme'
+import { styles } from '../style'
+import LogoLg from '../../components/LogoLg'
+import { LightTheme } from '../../../assets/theme/LightTheme'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '../../context/UserContext'
 
 export default function Login({ navigation }) {
 
@@ -18,7 +18,7 @@ export default function Login({ navigation }) {
 
   /* Context */
   const userContext = useContext(UserContext)
-  const {updateUser} = userContext
+  const { user, updateUser } = userContext
 
   const [error, setError] = React.useState()
   const [visible, setVisible] = React.useState(false)
@@ -55,7 +55,10 @@ export default function Login({ navigation }) {
       const userInfo = await GoogleSignin.signIn()
       updateUser(userInfo)
       setError(null)
-      navigation.navigate('Tabs')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Tabs' }]
+      })
     } catch (error) {
       setError(error)
     }
@@ -119,7 +122,7 @@ export default function Login({ navigation }) {
         style={LoginStyles.btnOutline}
         onPress={signIn}
       >
-        <Image source={require('../../assets/imgs/icons/google-icon.png')} style={{ width: 24, height: 24 }} />
+        <Image source={require('../../../assets/imgs/icons/google-icon.png')} style={{ width: 24, height: 24 }} />
         <Text>Fazer login com o Google</Text>
       </Pressable>
       <Text variant='labelLarge' style={{ alignSelf: 'center' }}>Não tem cadastro? <Link to={'/Tabs'} style={{ color: theme.primary }}>Cadastre-se</Link></Text>

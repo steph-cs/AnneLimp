@@ -7,11 +7,12 @@ import Toggle from './Toggle'
 type ConfigItemProps = {
   toggle?: boolean,
   title: string,
-  icon: string
+  icon: string,
+  onPress: () => void
 }
 
 export default function ConfigItem(props: ConfigItemProps) {
-  const { toggle, title, icon } = props
+  const { toggle, title, icon, onPress } = props
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const theme = LightTheme.colors
@@ -39,7 +40,7 @@ export default function ConfigItem(props: ConfigItemProps) {
           <ConfItemContent />
         </View>
         :
-        <TouchableOpacity style={ConfItemStyle.container}>
+        <TouchableOpacity onPress={onPress} style={ConfItemStyle.container}>
           <ConfItemContent />
         </TouchableOpacity>}
     </>

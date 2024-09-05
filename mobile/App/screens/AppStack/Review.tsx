@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { Button, Text } from 'react-native-paper'
-import { styles } from './style'
-import LogoLg from '../components/LogoLg'
-import Warning from '../fragments/Warning'
+import { styles } from '../style'
+import LogoLg from '../../components/LogoLg'
+import Warning from '../../fragments/Warning'
 
 export default function Review({ navigation }) {
   return (
@@ -25,12 +25,10 @@ export default function Review({ navigation }) {
             <Text variant='titleMedium'>11:30</Text>
           </View>
         </View>
-
         {/*aviso */}
         <Warning />
         <Button mode='contained' onPress={() => navigation.navigate('Home')}>Voltar</Button>
       </View>
-
     </View>
   )
 }

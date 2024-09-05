@@ -1,14 +1,14 @@
 import { View, Image, StyleSheet, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { ServiceModel } from '../components/ServiceCard'
-import { styles } from './style'
+import { ServiceModel } from '../../components/ServiceCard'
+import { styles } from '../style'
 import { Button, IconButton, Text } from 'react-native-paper'
-import PriceDuration from '../fragments/PriceDuration'
-import { LightTheme } from '../../assets/theme/LightTheme'
+import PriceDuration from '../../fragments/PriceDuration'
+import { LightTheme } from '../../../assets/theme/LightTheme'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
-import Loading from '../fragments/Loading'
+import Loading from '../../fragments/Loading'
+import { RootStackParamList } from '../../../Routes'
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Service'>;
 
@@ -24,7 +24,7 @@ export default function Service({ route }) {
       .then((response) => response.json())
       .then((json) => {
         setService(json)
-        setImgPath(json.tipo == 'simples' ? require('../../assets/imgs/services/service1.png') : require('../../assets/imgs/services/service2.png'))
+        setImgPath(json.tipo == 'simples' ? require('../../../assets/imgs/services/service1.png') : require('../../../assets/imgs/services/service2.png'))
       })
       .catch((error) => console.error(error))
       .finally(() => {

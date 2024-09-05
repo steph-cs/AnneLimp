@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { Button, Icon, Text, useTheme } from 'react-native-paper'
-import Header from '../components/Header'
-import { styles } from './style'
-import ServiceCard, { ServiceModel } from '../components/ServiceCard'
+
 import { TouchableOpacity } from '@gorhom/bottom-sheet'
-import MainCard from '../components/MainCard'
-import Loading from '../fragments/Loading'
+import ServiceCard, { ServiceModel } from '../../components/ServiceCard'
+import { styles } from '../style'
+import Header from '../../components/Header'
+import MainCard from '../../components/MainCard'
+import Loading from '../../fragments/Loading'
 
 export default function Home({ navigation }) {
 
