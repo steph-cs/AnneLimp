@@ -5,6 +5,7 @@ import { UserGroupIcon } from '@heroicons/react/24/solid'
 import { CurrencyDollarIcon } from '@heroicons/react/24/solid'
 import { ClockIcon } from '@heroicons/react/24/solid'
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/solid'
+import Logo from '../assets/imgs/logo/logo-sm.png'
 
 const navigationMenuOptions = [
   {
@@ -51,11 +52,7 @@ export default function NavigationMenu() {
         <nav className="flex lg:w-80 p-5 divide-y divide-solid flex-col gap-3 ">
           {/* logo */}
           <div className="flex flex-row justify-items-center items-center gap-5">
-            <img
-              width={45}
-              alt="annelimp-logo"
-              src="src\assets\imgs\logo\logo-sm.png"
-            />
+            <img width={45} alt="annelimp-logo" src={Logo} />
             <h3 className="text-calypso text-lg">AnneLimp</h3>
           </div>
           {/* nav */}
