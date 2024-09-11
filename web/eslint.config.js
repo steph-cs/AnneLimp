@@ -15,6 +15,7 @@ export default [
   eslintPluginPrettierRecommended,
   {
     rules: {
+      'react/react-in-jsx-scope': 'off',
       eqeqeq: ['error', 'smart'],
       'no-use-before-define': [
         'error',
