@@ -1,5 +1,6 @@
 import express, { json } from 'express';
 import connectDB from './db.js';
+import cors from 'cors'
 
 // Rotas
 import servicoRoutes from './src/routes/servico.route.js';
@@ -12,6 +13,13 @@ connectDB();
 
 // Middleware para parsear JSON
 app.use(json());
+
+const corsOptions = {
+  origin: 'https://annelimpweb.onrender.com',
+  optionsSuccessStatus: 200,
+};
+// Use CORS middleware
+app.use(cors());
 
 // Rotas
 app.use('/servicos', servicoRoutes);
