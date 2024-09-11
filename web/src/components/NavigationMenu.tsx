@@ -1,5 +1,3 @@
-import React from 'react'
-
 import NavigationItem from '../fragments/NavigationItem'
 import { HomeIcon, UserIcon } from '@heroicons/react/24/solid'
 import { CalendarDaysIcon } from '@heroicons/react/24/solid'
