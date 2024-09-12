@@ -29,7 +29,7 @@ const navigationMenuOptions = [
       {
         title: 'Serviços',
         icon: <CurrencyDollarIcon className="size-5" />,
-        link: '#',
+        link: '/services',
       },
       {
         title: 'Disponibilidade',

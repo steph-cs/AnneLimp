@@ -7,7 +7,7 @@ export default function Layout() {
       <NavigationMenu />
       <main
         style={{ borderStartStartRadius: '5rem' }}
-        className="bg-white w-full h-dvh mt-4 drop-shadow-lg ml-3 px-14 py-10"
+        className="bg-white w-full min-h-dvh mt-4 drop-shadow-lg ml-3 px-14 py-10"
       >
         <Outlet></Outlet>
       </main>
