@@ -1,0 +1,15 @@
+/* sm */
+@media only screen and (min-width: 640px) {
+  .main-container {
+    border-start-start-radius: 0px;
+    margin-left: 0;
+  }
+}
+
+/* lg */
+@media only screen and (min-width: 1024px) {
+  .main-container {
+    border-start-start-radius: 5rem;
+    margin-left: 0.75rem;
+  }
+}

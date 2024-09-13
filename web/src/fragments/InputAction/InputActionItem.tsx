@@ -1,4 +1,6 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
+import { useContext } from 'react'
+import { ServiceContext } from '../../context/ServiceContext'
 
 type Props = {
   item?: string
@@ -8,6 +10,21 @@ type Props = {
 export default function InputActionItem(props: Props) {
   const { item, precoDuracao } = props
 
+  /* Context */
+  const serviceContext = useContext(ServiceContext)
+  if (!serviceContext) {
+    return null
+  }
+  const { removeAtividade, removePrecoDuracao } = serviceContext
+
+  const handleAction = () => {
+    if (item) {
+      removeAtividade(item)
+    }
+    if (precoDuracao) {
+      removePrecoDuracao(precoDuracao)
+    }
+  }
   return (
     <div className="flex items-center justify-between my-3">
       {precoDuracao ? (
@@ -18,9 +35,7 @@ export default function InputActionItem(props: Props) {
         <p>{item}</p>
       )}
       <button
-        onClick={() => {
-          /* remove */
-        }}
+        onClick={handleAction}
         type="button"
         className="flex justify-center items-center gap-2 rounded-full  p-2  font-semibold leading-6 shadow-sm hover:text-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
       >

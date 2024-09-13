@@ -1,3 +1,6 @@
+import { useContext } from 'react'
+import { ServiceContext } from '../../context/ServiceContext'
+
 type Props = {
   titulo: string
   type: 'atividades' | 'preco' | 'duracao'
@@ -5,6 +8,13 @@ type Props = {
 
 export default function InputAction(props: Props) {
   const { titulo, type } = props
+
+  /* Context */
+  const serviceContext = useContext(ServiceContext)
+  if (!serviceContext) {
+    return null
+  }
+  const { setInputAtividade, setInputPreco, setInputDuracao } = serviceContext
 
   return (
     <div className="w-full">
@@ -23,6 +33,9 @@ export default function InputAction(props: Props) {
                 type="text"
                 name={type}
                 id={type}
+                onChange={(e) => {
+                  setInputAtividade(e.target.value)
+                }}
                 className="w-full block flex-1 rounded-md border-0 bg-transparent py-1.5 px-2 text-gray-900 placeholder:text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 outline-0 focus:ring-inset focus:ring-tradewind-600 sm:text-sm sm:leading-6"
                 placeholder="tirar o pó"
               />
@@ -38,6 +51,9 @@ export default function InputAction(props: Props) {
                 type="number"
                 name={type}
                 id={type}
+                onChange={(e) => {
+                  setInputPreco(Number(e.target.value))
+                }}
                 className="w-full block flex-1 rounded-md border-0 bg-transparent py-1.5 px-2 text-gray-900 placeholder:text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 outline-0 focus:ring-inset focus:ring-tradewind-600 sm:text-sm sm:leading-6"
                 placeholder="0,00"
               />
@@ -50,6 +66,9 @@ export default function InputAction(props: Props) {
                 type="number"
                 name={type}
                 id={type}
+                onChange={(e) => {
+                  setInputDuracao(Number(e.target.value))
+                }}
                 className="w-full block flex-1 rounded-md border-0 bg-transparent py-1.5 px-2 text-gray-900 placeholder:text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 outline-0 focus:ring-inset focus:ring-tradewind-600 sm:text-sm sm:leading-6"
                 placeholder="4"
               />

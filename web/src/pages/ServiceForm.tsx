@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ServiceModel, tipoServico } from './Services'
 import InputAction from '../fragments/InputAction/InputAction'
@@ -7,6 +7,7 @@ import InputActionItem from '../fragments/InputAction/InputActionItem'
 import InputActionBtn from '../fragments/InputAction/InputActionBtn'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import InputError from '../fragments/InputError'
+import { ServiceContext } from '../context/ServiceContext'
 
 interface ServiceInputs {
   tipo: tipoServico
@@ -18,7 +19,7 @@ interface ServiceInputs {
   precoDuracao: {
     preco: number
     duracao: number
-  }
+  }[]
 }
 
 export default function ServiceForm() {
@@ -28,17 +29,38 @@ export default function ServiceForm() {
 
   const navigate = useNavigate()
 
+  /* Context */
+  const serviceContext = useContext(ServiceContext)
+  if (!serviceContext) {
+    return null
+  }
+  const {
+    atividades,
+    setAtividades,
+    addAtividade,
+    precoDuracao,
+    setPrecoDuracao,
+    addPrecoDuracao,
+  } = serviceContext
+
   const getServico = async () => {
     fetch(`https://annelimp.onrender.com/servicos/${id}`)
       .then((response) => response.json())
-      .then((json) => {
-        setService(json)
+      .then((json: ServiceModel) => {
+        const service = json
+        setService(service)
+        setAtividades(service.descricao.atividades)
+        setPrecoDuracao(service.precoDuracao)
       })
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const putServico = async (data: ServiceInputs) => {
+    data.descricao.atividades = atividades
+    data.precoDuracao = precoDuracao
     fetch(`https://annelimp.onrender.com/servicos/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data),
@@ -47,17 +69,10 @@ export default function ServiceForm() {
         Accept: 'application/json',
       }),
     })
-      .then((response) => response.json())
-      .then((json) => {
-        setService(json)
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false))
   }
 
   useEffect(() => {
     getServico()
-    console.log('render')
   }, [])
 
   const {
@@ -158,34 +173,26 @@ export default function ServiceForm() {
                 <div className="md:col-span-3">
                   <div className="flex gap-4 items-end w-full ">
                     <InputAction titulo="Atividades" type="atividades" />
-                    <InputActionBtn
-                      action={() => {
-                        /* add */
-                      }}
-                    />
+                    <InputActionBtn action={addAtividade} />
                   </div>
 
                   {/* lista atividades */}
                   <div>
-                    {service?.descricao.atividades.map((el, key) => (
+                    {atividades.map((el: string, key: number) => (
                       <InputActionItem item={el} key={key} />
                     ))}
                   </div>
                 </div>
                 {/* precoDuracao */}
-                <div className="md:col-start-6 md:col-span-3 ">
+                <div className="lg:col-start-6 lg:col-span-3 md:col-start-4 md:col-span-5 ">
                   <div className="flex gap-4 items-end w-full">
                     <InputAction titulo="Preço" type="preco" />
                     <InputAction titulo="Duração" type="duracao" />
-                    <InputActionBtn
-                      action={() => {
-                        /* add */
-                      }}
-                    />
+                    <InputActionBtn action={addPrecoDuracao} />
                   </div>
                   {/* lista preco/duracao */}
                   <div>
-                    {service?.precoDuracao.map((el, key) => (
+                    {precoDuracao.map((el, key) => (
                       <InputActionItem precoDuracao={el} key={key} />
                     ))}
                   </div>
