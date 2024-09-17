@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Services from './pages/Services'
 import ServiceForm from './pages/ServiceForm'
 import { ServiceProvider } from './context/ServiceContext'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
                 path="/service/:type/:id?"
                 element={<ServiceForm />}
               ></Route>
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>
