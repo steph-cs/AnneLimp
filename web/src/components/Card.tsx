@@ -12,7 +12,7 @@ export default function Card(props: Props) {
   const navigate = useNavigate()
 
   return (
-    <div className="border rounded-md p-4">
+    <div className="border shadow-md rounded-md p-4">
       <h2 className="text-xl font-bold">Limpeza {service.tipo}</h2>
       <p className="text-sm text-neutral-500">{service.descricao.titulo}</p>
       <div className="my-2">

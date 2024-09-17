@@ -38,7 +38,6 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
   /* atividades methods */
   const addAtividade = () => {
     const input = inputAtividade.replace(/\s+/g, ' ').trim()
-    console.log(input)
     if (!atividades.includes(input)) {
       setAtividades((prevState) => [...prevState, input])
     } else {
@@ -53,7 +52,6 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
   const addPrecoDuracao = () => {
     const inputsMaiorZero =
       inputPreco && inputPreco > 0 && inputDuracao && inputDuracao > 0
-    console.log(inputsMaiorZero)
     const precoDuracaoExiste = precoDuracao.some(
       (item) => item.preco === inputPreco && item.duracao === inputDuracao
     )

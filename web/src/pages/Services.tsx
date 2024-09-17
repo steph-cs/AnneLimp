@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import Card from '../components/Card'
+import CardLoading from '../components/CardLoading'
 
 export type tipoServico = 'simples' | 'pesada'
 
@@ -56,11 +57,13 @@ export default function Services() {
         </p>
       </div>
       <main className="grid 2xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 my-8">
-        {loading ? (
-          <p>Loading</p>
-        ) : (
-          services.map((service, key) => <Card service={service} key={key} />)
-        )}
+        {loading
+          ? Array.from({ length: 2 }).map((_, index) => (
+              <CardLoading key={index} />
+            ))
+          : services.map((service, key) => (
+              <Card service={service} key={key} />
+            ))}
       </main>
     </>
   )
