@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import Card from '../components/Card'
 import CardLoading from '../components/CardLoading'
+import { useNavigate } from 'react-router-dom'
 
 export type tipoServico = 'simples' | 'pesada'
 
@@ -23,6 +24,8 @@ export default function Services() {
   const [services, setServices] = useState<ServiceModel[]>([])
   const [loading, setLoading] = useState(true)
 
+  const navigate = useNavigate()
+
   const getServicos = async () => {
     fetch('https://annelimp.onrender.com/servicos')
       .then((response) => response.json())
@@ -35,7 +38,6 @@ export default function Services() {
 
   useEffect(() => {
     getServicos()
-    console.log('render')
   }, [])
 
   return (
@@ -45,7 +47,10 @@ export default function Services() {
         <div className="flex gap-10">
           <h1 className="text-4xl font-bold">Serviços</h1>
           <button
-            type="submit"
+            type="button"
+            onClick={() => {
+              navigate(`/service/create`)
+            }}
             className="flex justify-center items-center gap-2 rounded-md bg-calypso px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-calypso-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-calypso-600"
           >
             <PlusIcon className="size-5" />

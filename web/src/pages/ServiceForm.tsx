@@ -41,6 +41,7 @@ export default function ServiceForm() {
     precoDuracao,
     setPrecoDuracao,
     addPrecoDuracao,
+    delServico,
   } = serviceContext
 
   const getServico = async () => {
@@ -71,8 +72,25 @@ export default function ServiceForm() {
     })
   }
 
+  const postServico = async (data: ServiceInputs) => {
+    data.descricao.atividades = atividades
+    data.precoDuracao = precoDuracao
+    fetch(`https://annelimp.onrender.com/servicos`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    })
+  }
+
   useEffect(() => {
-    getServico()
+    if (id) {
+      getServico()
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   const {
@@ -82,7 +100,11 @@ export default function ServiceForm() {
   } = useForm<ServiceInputs>()
 
   const onSubmit: SubmitHandler<ServiceInputs> = (data) => {
-    putServico(data)
+    if (id) {
+      putServico(data)
+    } else {
+      postServico(data)
+    }
     navigate('/services')
   }
 
@@ -94,118 +116,125 @@ export default function ServiceForm() {
           {type === 'create' ? 'Cadastrar' : 'Editar'} serviço
         </h1>
       </div>
-      {id && (
-        <form className="my-8" id={id} onSubmit={handleSubmit(onSubmit)}>
-          {!loading ? (
-            <div className="mb-16">
-              <div className="my-10 grid gap-x-6 gap-y-8 sm:grid-cols-1 md:grid-cols-3">
-                {/* tipo */}
-                <div>
-                  <label
-                    htmlFor="tipo"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+      <form className="my-8" id={id} onSubmit={handleSubmit(onSubmit)}>
+        {!loading ? (
+          <div className="mb-16">
+            <div className="my-10 grid gap-x-6 gap-y-8 sm:grid-cols-1 md:grid-cols-3">
+              {/* tipo */}
+              <div>
+                <label
+                  htmlFor="tipo"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Tipo
+                </label>
+                <div className="mt-2">
+                  <select
+                    id="tipo"
+                    defaultValue={service?.tipo}
+                    {...register('tipo')}
+                    className="block w-full h-full  rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 outline-0 focus:ring-2 focus:ring-inset focus:ring-tradewind-600 :ring-tradewind-600 sm:text-sm leading-8"
                   >
-                    Tipo
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      id="tipo"
-                      defaultValue={service?.tipo}
-                      {...register('tipo')}
-                      className="block w-full h-full  rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 outline-0 focus:ring-2 focus:ring-inset focus:ring-tradewind-600 :ring-tradewind-600 sm:text-sm leading-8"
-                    >
-                      <option value={'simples'}>Simples</option>
-                      <option value={'pesada'}>Pesada</option>
-                    </select>
-                  </div>
-                </div>
-                {/* titulo */}
-                <div>
-                  <label
-                    htmlFor="titulo"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Título
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="titulo"
-                      type="text"
-                      {...register('descricao.titulo', {
-                        required: true,
-                        maxLength: 50,
-                      })}
-                      defaultValue={service?.descricao.titulo}
-                      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-0 focus:ring-inset focus:ring-tradewind-600 sm:text-sm sm:leading-6"
-                    />
-                    {errors.descricao && errors.descricao.titulo && (
-                      <InputError />
-                    )}
-                  </div>
-                </div>
-                {/* descricao */}
-                <div>
-                  <label
-                    htmlFor="descricao"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Descrição
-                  </label>
-                  <div className="mt-2">
-                    <textarea
-                      id="descricao"
-                      rows={3}
-                      defaultValue={service?.descricao.descricao}
-                      {...register('descricao.descricao', {
-                        required: true,
-                        maxLength: 200,
-                      })}
-                      className="block w-full rounded-md border-0 py-1.5 px-2  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-0 focus:ring-inset focus:ring-tradewind-600 sm:text-sm sm:leading-6"
-                    ></textarea>
-                    {errors.descricao && errors.descricao.descricao && (
-                      <InputError />
-                    )}
-                  </div>
+                    <option value={'simples'}>Simples</option>
+                    <option value={'pesada'}>Pesada</option>
+                  </select>
                 </div>
               </div>
-              <div className="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-1 md:grid-cols-8 ">
-                {/* atividades */}
-                <div className="md:col-span-3">
-                  <div className="flex gap-4 items-end w-full ">
-                    <InputAction titulo="Atividades" type="atividades" />
-                    <InputActionBtn action={addAtividade} />
-                  </div>
-
-                  {/* lista atividades */}
-                  <div>
-                    {atividades.map((el: string, key: number) => (
-                      <InputActionItem item={el} key={key} />
-                    ))}
-                  </div>
+              {/* titulo */}
+              <div>
+                <label
+                  htmlFor="titulo"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Título
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="titulo"
+                    type="text"
+                    {...register('descricao.titulo', {
+                      required: true,
+                      maxLength: 50,
+                    })}
+                    defaultValue={service?.descricao.titulo}
+                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-0 focus:ring-inset focus:ring-tradewind-600 sm:text-sm sm:leading-6"
+                  />
+                  {errors.descricao && errors.descricao.titulo && (
+                    <InputError />
+                  )}
                 </div>
-                {/* precoDuracao */}
-                <div className="lg:col-start-6 lg:col-span-3 md:col-start-4 md:col-span-5 ">
-                  <div className="flex gap-4 items-end w-full">
-                    <InputAction titulo="Preço" type="preco" />
-                    <InputAction titulo="Duração" type="duracao" />
-                    <InputActionBtn action={addPrecoDuracao} />
-                  </div>
-                  {/* lista preco/duracao */}
-                  <div>
-                    {precoDuracao.map((el, key) => (
-                      <InputActionItem precoDuracao={el} key={key} />
-                    ))}
-                  </div>
+              </div>
+              {/* descricao */}
+              <div>
+                <label
+                  htmlFor="descricao"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Descrição
+                </label>
+                <div className="mt-2">
+                  <textarea
+                    id="descricao"
+                    rows={3}
+                    defaultValue={service?.descricao.descricao}
+                    {...register('descricao.descricao', {
+                      required: true,
+                      maxLength: 200,
+                    })}
+                    className="block w-full rounded-md border-0 py-1.5 px-2  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-0 focus:ring-inset focus:ring-tradewind-600 sm:text-sm sm:leading-6"
+                  ></textarea>
+                  {errors.descricao && errors.descricao.descricao && (
+                    <InputError />
+                  )}
                 </div>
               </div>
             </div>
-          ) : (
-            <p>Loading</p>
-          )}
+            <div className="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-1 md:grid-cols-8 ">
+              {/* atividades */}
+              <div className="md:col-span-3">
+                <div className="flex gap-4 items-end w-full ">
+                  <InputAction titulo="Atividades" type="atividades" />
+                  <InputActionBtn action={addAtividade} />
+                </div>
 
-          <BtnsGroup primaryText="Salvar alterações" serviceId={id} />
-        </form>
-      )}
+                {/* lista atividades */}
+                <div>
+                  {atividades.map((el: string, key: number) => (
+                    <InputActionItem item={el} key={key} />
+                  ))}
+                </div>
+              </div>
+              {/* precoDuracao */}
+              <div className="lg:col-start-6 lg:col-span-3 md:col-start-4 md:col-span-5 ">
+                <div className="flex gap-4 items-end w-full">
+                  <InputAction titulo="Preço" type="preco" />
+                  <InputAction titulo="Duração" type="duracao" />
+                  <InputActionBtn action={addPrecoDuracao} />
+                </div>
+                {/* lista preco/duracao */}
+                <div>
+                  {precoDuracao.map((el, key) => (
+                    <InputActionItem precoDuracao={el} key={key} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <p>Loading</p>
+        )}
+
+        <BtnsGroup
+          primaryText={id ? 'Salvar alterações' : 'Adicionar serviço'}
+          secondaryText={id ? 'Excluir' : 'Cancelar'}
+          secondaryAction={() => {
+            if (id) {
+              delServico(id)
+            }
+            navigate('/services')
+          }}
+        />
+      </form>
     </>
   )
 }

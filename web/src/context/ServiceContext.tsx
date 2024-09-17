@@ -19,6 +19,8 @@ interface ServiceContextType {
   setPrecoDuracao: (prevState: PrecoDuracaoType[]) => void
   addPrecoDuracao: () => void
   removePrecoDuracao: (delPrecoDuracao: PrecoDuracaoType) => void
+  delServico: (id: string) => void
+  refreshPage: () => void
 }
 
 export const ServiceContext = createContext<ServiceContextType | undefined>(
@@ -34,6 +36,10 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
   const [inputPreco, setInputPreco] = useState<number>(0)
   const [inputDuracao, setInputDuracao] = useState<number>(0)
   const [precoDuracao, setPrecoDuracao] = useState<PrecoDuracaoType[]>([])
+
+  const refreshPage = () => {
+    window.location.reload()
+  }
 
   /* atividades methods */
   const addAtividade = () => {
@@ -74,6 +80,14 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
     )
   }
 
+  const delServico = async (id: string) => {
+    fetch(`https://annelimp.onrender.com/servicos/${id}`, {
+      method: 'DELETE',
+    }).then(() => {
+      refreshPage()
+    })
+  }
+
   return (
     <ServiceContext.Provider
       value={{
@@ -88,6 +102,8 @@ export const ServiceProvider = ({ children }: { children: ReactNode }) => {
         setPrecoDuracao,
         addPrecoDuracao,
         removePrecoDuracao,
+        delServico,
+        refreshPage,
       }}
     >
       {children}
