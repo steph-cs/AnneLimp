@@ -14,7 +14,7 @@ const navigationMenuOptions = [
       {
         title: 'Agendamentos',
         icon: <CalendarDaysIcon className="size-5" />,
-        link: '#',
+        link: '/booking',
       },
       {
         title: 'Clientes',
@@ -48,7 +48,7 @@ const navigationMenuOptions = [
 export default function NavigationMenu() {
   return (
     <>
-      <div className="hidden lg:flex flex-col justify-between h-dvh">
+      <div className="sticky top-0 hidden lg:flex flex-col justify-between h-dvh">
         <nav className="flex lg:w-80 p-5 divide-y divide-solid flex-col gap-3 ">
           {/* logo */}
           <div className="flex flex-row justify-items-center items-center gap-5">
