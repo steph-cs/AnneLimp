@@ -1,3 +1,5 @@
+@import 'assets/style/CalendarView.scss';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -47,9 +47,9 @@ export default function Login({ navigation }) {
 
   useEffect(() => {
     configureGoogleSignIn()
-  })
+  },[])
 
-  const signIn = async () => {
+  const signIn = async () => {   
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()

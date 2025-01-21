@@ -4,6 +4,8 @@ import cors from 'cors'
 
 // Rotas
 import servicoRoutes from './src/routes/servico.route.js';
+import clienteRoutes from './src/routes/cliente.route.js';
+import agendamentoRoutes from './src/routes/agendamento.route.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,7 +24,9 @@ const corsOptions = {
 app.use(cors());
 
 // Rotas
-app.use('/servicos', servicoRoutes);
+app.use('/servicos', servicoRoutes); 
+app.use('/clientes', clienteRoutes);
+app.use('/agendamentos', agendamentoRoutes);
 
 // Iniciar o servidor
 app.listen(PORT, () => {

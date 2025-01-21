@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 export default function ConfigContainer() {
   /* Context */
   const userContext = useContext(UserContext)
-  const { user, updateUser } = userContext
+  const { user, updateUser, signOut } = userContext
 
   const navigation = useNavigation()
 
@@ -54,6 +54,7 @@ export default function ConfigContainer() {
             await GoogleSignin.revokeAccess()
             await GoogleSignin.signOut()
             updateUser(GoogleSignin.getCurrentUser())
+            signOut()
             navigation.reset({
               index: 0,
               routes: [{ name: 'Init' }]

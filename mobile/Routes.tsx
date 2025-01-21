@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Profile from './App/screens/AppStack/Profile';
 import { BottomTab } from './App/components/BottomTab';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,6 +10,7 @@ import { UserContext } from './App/context/UserContext';
 import Init from './App/screens/AuthStack/Init';
 import Home from './App/screens/AppStack/Home';
 import Booking from './App/screens/AppStack/Booking';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export type RootStackParamList = {
   Init: undefined;
@@ -52,8 +53,8 @@ function Tabs() {
 export default function Routes() {
   /* Context */
   const userContext = useContext(UserContext)
-  const { user } = userContext
-
+  const { user, getUser } = userContext
+  
   return (
     <NavigationContainer >
       <Stack.Navigator screenOptions={{ headerShown: false }}>
