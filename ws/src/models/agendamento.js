@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 const agendamentoSchema = new mongoose.Schema({
   cliente_id: {
     type: mongoose.Schema.Types.ObjectId,  // Relaciona com o ID do cliente
