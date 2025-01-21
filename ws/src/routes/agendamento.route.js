@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import Agendamento from '../models/agendamento.js';
 import Cliente from '../models/cliente.js';
-import Service from '../models/service.js';
+import Servico from '../models/servico.js';
 
 const router = Router();
 
@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
 
     // Verifica se o cliente e o serviço existem
     const cliente = await Cliente.findById(cliente_id);
-    const servico = await Service.findById(service_id);
+    const servico = await Servico.findById(service_id);
     if (!cliente || !servico) {
       return res.status(400).json({ message: 'Cliente ou serviço não encontrado' });
     }
