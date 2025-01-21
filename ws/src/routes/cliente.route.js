@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import Cliente from '../models/cliente.js'
 import bcrypt from 'bcrypt';
 import Cliente from '../models/cliente.js';
 
