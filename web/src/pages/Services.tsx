@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import Card from '../components/Card'
 import CardLoading from '../components/CardLoading'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState, useAppDispatch } from '../redux/store.ts'
+import { GetServices } from '../redux/service/serviceThunk.ts'
 
 export type tipoServico = 'simples' | 'pesada'
 
@@ -21,19 +24,13 @@ export interface ServiceModel {
 }
 
 export default function Services() {
-  const [services, setServices] = useState<ServiceModel[]>([])
-  const [loading, setLoading] = useState(true)
+  const { services, request } = useSelector((state: RootState) => state.service)
+  const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
 
-  const getServicos = async () => {
-    fetch('https://annelimp.onrender.com/servicos')
-      .then((response) => response.json())
-      .then((json) => {
-        setServices(json)
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false))
+  const getServicos = () => {
+    dispatch(GetServices())
   }
 
   useEffect(() => {
@@ -62,7 +59,7 @@ export default function Services() {
         </p>
       </div>
       <main className="grid 2xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 my-8">
-        {loading
+        {request !== 'success' && services.length > 0
           ? Array.from({ length: 2 }).map((_, index) => (
               <CardLoading key={index} />
             ))

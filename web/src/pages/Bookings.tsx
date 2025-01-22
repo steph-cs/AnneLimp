@@ -1,39 +1,70 @@
 import { useEffect, useState } from 'react'
-import CalendarView from '../fragments/CalendarView'
+import CalendarView, { CalendarEvent } from '../fragments/CalendarView'
 
-const events = [
-  {
-    id: 1,
-    title: 'Samantha',
-    start: new Date(2024, 8, 17, 8, 0),
-    end: new Date(2024, 8, 17, 17, 0),
-  },
-  {
-    id: 2,
-    title: 'Restaurante',
-    start: new Date(2024, 8, 16, 11, 0),
-    end: new Date(2024, 8, 16, 11 + 6, 0),
-  },
-  {
-    id: 3,
-    title: 'Silvana',
-    start: new Date(2024, 8, 19, 8, 0),
-    end: new Date(2024, 8, 19, 17, 0),
-  },
-]
+export const apiUrl = import.meta.env.VITE_API_URL
+
+interface PrecoDuracao {
+  preco: number
+  duracao: number
+}
+
+interface Descricao {
+  titulo: string
+  descricao: string
+  atividades: string[]
+}
+
+interface Service {
+  tipo: string
+  descricao: Descricao
+  precoDuracao: PrecoDuracao[]
+}
+
+interface Client {
+  email: string
+  senha: string
+  nome: string
+  sobrenome: string
+  telefone: string
+  endereco: {
+    cep: string
+    numero: string
+    complemento: string
+  }
+  comodos: {
+    quartos: number
+    banheiros: number
+    cozinhas: number
+    salas: number
+    varandas: number
+    area_externa: number
+  }
+  pet: boolean
+}
+
 export interface BookingModel {
-  service_id: string
+  service: Service
+  client: Client
+  data: Date
 }
 
 export default function Bookings() {
-  const [bookings, setBookings] = useState<BookingModel[]>([])
+  const [events, setEvents] = useState<CalendarEvent[]>([])
   const [loading, setLoading] = useState(true)
 
+  const formatEvents = (bookings: BookingModel[]) => {
+    return bookings.map((booking) => ({
+      title: booking.client.nome,
+      start: new Date(booking.data),
+      end: new Date(booking.data),
+    }))
+  }
+
   const getBookings = async () => {
-    fetch('https://annelimp.onrender.com/agendamentos')
+    fetch(apiUrl + '/agendamentos')
       .then((response) => response.json())
       .then((json) => {
-        setBookings(json)
+        setEvents(formatEvents(json))
       })
       .catch((error) => console.error(error))
       .finally(() => setLoading(false))
@@ -46,7 +77,7 @@ export default function Bookings() {
   return (
     <div className="">
       <h1 className="text-4xl font-bold">Agendamentos</h1>
-      {loading ? <p>Loading</p> : <CalendarView events={bookings} />}
+      {loading ? <p>Loading</p> : <CalendarView events={events} />}
     </div>
   )
 }
