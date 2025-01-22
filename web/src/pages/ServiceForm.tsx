@@ -8,6 +8,7 @@ import InputActionBtn from '../fragments/InputAction/InputActionBtn'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import InputError from '../fragments/InputError'
 import { ServiceContext } from '../context/ServiceContext'
+import { apiUrl } from './Bookings.tsx'
 
 interface ServiceInputs {
   tipo: tipoServico
@@ -45,7 +46,7 @@ export default function ServiceForm() {
   } = serviceContext
 
   const getServico = async () => {
-    fetch(`https://annelimp.onrender.com/servicos/${id}`)
+    fetch(`${apiUrl}servicos/${id}`)
       .then((response) => response.json())
       .then((json: ServiceModel) => {
         const service = json
@@ -75,7 +76,7 @@ export default function ServiceForm() {
   const postServico = async (data: ServiceInputs) => {
     data.descricao.atividades = atividades
     data.precoDuracao = precoDuracao
-    fetch(`https://annelimp.onrender.com/servicos`, {
+    fetch(`${apiUrl}servicos`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: new Headers({

@@ -2,12 +2,17 @@ import moment from 'moment'
 import 'moment/dist/locale/pt-br'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import '../assets/style/CalendarView.scss'
-import { BookingModel } from '../pages/Bookings'
 
 const localizer = momentLocalizer(moment)
 
-type CalendarViewProps = {
-  events: BookingModel[]
+export interface CalendarEvent {
+  title: string
+  start: Date
+  end: Date
+}
+
+interface CalendarViewProps {
+  events: CalendarEvent[]
 }
 
 export default function CalendarView(props: CalendarViewProps) {
